@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Progress and Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gradient-to-br from-purple-100 to-pink-100 min-h-screen font-sans text-gray-800">
+
+  <!-- ✅ Navbar -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="/" class="text-xl font-bold text-purple-600">💪Bodysync</a>
+      <ul class="flex space-x-6">
+        <li><a href="/" class="hover:text-purple-600">Home</a></li>
+        <li><a href="/my_programs" class="hover:text-purple-600">My Programs</a></li>
+        <li><a href="/progress_test" class="text-purple-600 font-semibold">Progress & Test</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+
+    <h1 class="text-3xl font-bold mb-8 text-center text-purple-700">📈 Your Progress & Test Zone</h1>
+
+    <!-- ⬇️ Dynamic Section for Streaks & Motivation -->
+    <section class="bg-white rounded-xl shadow-lg p-6 mb-10">
+      <h2 class="text-2xl font-bold text-indigo-600 mb-4">🔥 Your Streaks & Achievements</h2>
+      <div class="grid md:grid-cols-3 gap-6 text-center">
+        <div class="bg-indigo-100 p-4 rounded-xl">
+          <h3 class="text-lg font-semibold">🔥 Current Streak</h3>
+          <p class="text-2xl font-bold text-indigo-700" id="dynamicStreak">-</p>
+        </div>
+        <div class="bg-yellow-100 p-4 rounded-xl">
+          <h3 class="text-lg font-semibold">🏅 Badge</h3>
+          <p class="text-2xl font-bold text-yellow-600" id="dynamicBadge">-</p>
+        </div>
+        <div class="bg-pink-100 p-4 rounded-xl">
+          <h3 class="text-lg font-semibold">📊 Progress</h3>
+          <p class="text-2xl font-bold text-pink-600" id="dynamicProgress">-</p>
+        </div>
+      </div>
+      <div class="text-center mt-6">
+        <blockquote id="motivationalQuote" class="text-lg italic text-gray-700">“You are stronger than you think 💪”</blockquote>
+      </div>
+    </section>
+
+    <!-- ✅ Overall Stats -->
+    <div class="grid md:grid-cols-4 gap-6 mb-10">
+      <div class="bg-white rounded-xl p-5 shadow-lg text-center">
+        <h2 class="text-lg font-semibold text-purple-600 mb-2">Total Programs</h2>
+        <p class="text-3xl font-bold" id="totalPrograms">-</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 shadow-lg text-center">
+        <h2 class="text-lg font-semibold text-green-600 mb-2">Completed Days</h2>
+        <p class="text-3xl font-bold" id="completedDays">-</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 shadow-lg text-center">
+        <h2 class="text-lg font-semibold text-yellow-500 mb-2">Pending Days</h2>
+        <p class="text-3xl font-bold" id="pendingDays">-</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 shadow-lg text-center">
+        <h2 class="text-lg font-semibold text-pink-600 mb-2">Current Streak</h2>
+        <p class="text-3xl font-bold" id="currentStreak">-</p>
+      </div>
+    </div>
+
+    <!-- ✅ Program-wise Progress -->
+    <div class="bg-white rounded-xl shadow-lg p-6 mb-10">
+      <h2 class="text-2xl font-bold text-purple-600 mb-4">📘 Program Report</h2>
+
+      <div class="mb-4">
+        <label for="program_selector" class="block mb-2 font-medium">Select Program:</label>
+        <select id="program_selector" onchange="updateProgramReport()" class="w-full px-4 py-2 border rounded-md"></select>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-6 mb-6 text-center">
+        <div>
+          <p class="text-sm text-gray-500">Total Days</p>
+          <p class="text-xl font-bold text-gray-700" id="p_total">-</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Completed</p>
+          <p class="text-xl font-bold text-green-600" id="p_completed">-</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Pending</p>
+          <p class="text-xl font-bold text-yellow-500" id="p_pending">-</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">Streak</p>
+          <p class="text-xl font-bold text-pink-600" id="p_streak">-</p>
+        </div>
+      </div>
+
+      <div class="w-full flex justify-center">
+        <canvas id="progressChart" class="max-w-[250px] max-h-[250px]"></canvas>
+      </div>
+    </div>
+
+    <!-- ✅ Test Generator -->
+    <div class="bg-white rounded-xl shadow-lg p-6">
+      <h2 class="text-2xl font-bold text-purple-600 mb-4">📝 Auto Test Generator</h2>
+
+      <div class="grid md:grid-cols-3 gap-4 mb-4">
+        <div>
+          <label for="test_topic" class="block font-medium mb-1">Topic</label>
+          <select id="test_topic" class="w-full px-3 py-2 border rounded-md"></select>
+        </div>
+        <div>
+          <label for="test_level" class="block font-medium mb-1">Level</label>
+          <select id="test_level" class="w-full px-3 py-2 border rounded-md">
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </select>
+        </div>
+        <div>
+          <label for="test_questions" class="block font-medium mb-1"># of Questions</label>
+          <input type="number" id="test_questions" value="5" min="1" max="20" class="w-full px-3 py-2 border rounded-md" />
+        </div>
+      </div>
+
+      <button onclick="generateTest()" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-2 rounded-md transition">
+        Generate Test
+      </button>
+
+      <div class="mt-6">
+        <h3 class="text-xl font-semibold mb-2 text-purple-700">📄 Test Output</h3>
+        <div id="testOutput" class="space-y-2 bg-gray-50 p-4 rounded-md border text-sm"></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let allProgramData = {};
+
+    function loadProgress() {
+      fetch('/get_progress')
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            document.getElementById("totalPrograms").innerText = data.total_programs;
+            document.getElementById("completedDays").innerText = data.completed_days;
+            document.getElementById("pendingDays").innerText = data.pending_days;
+            document.getElementById("currentStreak").innerText = data.streak;
+
+            const selector = document.getElementById("program_selector");
+            selector.innerHTML = '';
+            for (let topic in data.program_data) {
+              const option = document.createElement("option");
+              option.value = topic;
+              option.textContent = topic;
+              selector.appendChild(option);
+            }
+
+            allProgramData = data.program_data;
+            updateProgramReport();
+          }
+        });
+    }
+
+    function updateProgramReport() {
+      const topic = document.getElementById("program_selector").value;
+      const prog = allProgramData[topic];
+
+      document.getElementById("p_total").innerText = prog.total_days;
+      document.getElementById("p_completed").innerText = prog.completed;
+      document.getElementById("p_pending").innerText = prog.pending;
+      document.getElementById("p_streak").innerText = prog.streak;
+
+      if (window.progressChartInstance) {
+        window.progressChartInstance.destroy();
+      }
+
+      const ctx = document.getElementById("progressChart").getContext('2d');
+      window.progressChartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Completed', 'Pending'],
+          datasets: [{
+            data: [prog.completed, prog.pending],
+            backgroundColor: ['#10b981', '#facc15']
+          }]
+        },
+        options: {
+          plugins: {
+            legend: { display: true, position: 'bottom' }
+          },
+          cutout: '70%',
+        }
+      });
+    }
+
+    function loadTopicsForTest() {
+      fetch('/get_programs')
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            const select = document.getElementById("test_topic");
+            select.innerHTML = '';
+            data.topics.forEach(topic => {
+              const opt = document.createElement("option");
+              opt.value = topic;
+              opt.textContent = topic;
+              select.appendChild(opt);
+            });
+          }
+        });
+    }
+
+    function generateTest() {
+      const topic = document.getElementById("test_topic").value;
+      const level = document.getElementById("test_level").value;
+      const questions = parseInt(document.getElementById("test_questions").value);
+
+      fetch('/generate_test', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ topic, level, questions })
+      })
+      .then(res => res.json())
+      .then(data => {
+        const box = document.getElementById("testOutput");
+        box.innerHTML = "";
+        if (data.success && data.questions) {
+          data.questions.forEach((q, index) => {
+            const p = document.createElement("p");
+            p.innerHTML = `<strong>Q${index + 1}:</strong> ${q}`;
+            box.appendChild(p);
+          });
+        } else {
+          box.innerHTML = `<p class="text-red-500">Error generating test.</p>`;
+        }
+      });
+    }
+
+    function loadDynamicStats() {
+      fetch('/api/streak_achievements')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("dynamicStreak").innerText = data.streak || "-";
+          document.getElementById("dynamicBadge").innerText = data.badge || "-";
+          document.getElementById("dynamicProgress").innerText = data.progress || "-";
+          document.getElementById("motivationalQuote").innerText = `“${data.quote || 'Keep going!'}”`;
+        });
+    }
+
+    window.onload = function () {
+      loadProgress();
+      loadTopicsForTest();
+      loadDynamicStats();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 Join the Fitness Revolution - Fitgenie</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='anime-style.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Main Container -->
+    <div class="main-container" style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        
+        <!-- Register Card -->
+        <div class="form-container" style="max-width: 500px; width: 100%; animation: fadeInUp 0.8s ease;">
+            
+            <!-- Logo Section -->
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div class="logo" style="font-size: 2.5rem; margin-bottom: 1rem;">
+                    <i class="fas fa-dumbbell"></i>
+                    AI Gym Planner
+                </div>
+                <h2 style="color: var(--text-light); margin: 0;">
+                    <i class="fas fa-star"></i> Join the Fitness Revolution!
+                </h2>
+                <p style="color: var(--text-gray); margin-top: 0.5rem;">
+                    Create your account and unlock your full potential
+                </p>
+            </div>
+
+            <!-- Success Message -->
+            {% if success %}
+            <div style="background: var(--gradient-3); color: white; padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem; text-align: center; animation: bounceIn 0.8s ease;">
+                <i class="fas fa-check-circle"></i> {{ success }}
+            </div>
+            {% endif %}
+
+            <!-- Error Message -->
+            {% if error %}
+            <div style="background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%); color: white; padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem; text-align: center; animation: shake 0.5s ease;">
+                <i class="fas fa-exclamation-triangle"></i> {{ error }}
+            </div>
+            {% endif %}
+
+            <!-- Registration Form -->
+            <form method="POST" style="animation: fadeInUp 0.8s ease 0.2s both;">
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-user"></i> Choose Your Hero Name
+                    </label>
+                    <input type="text" name="username" class="form-input" 
+                           placeholder="Enter a unique username" required
+                           style="background: rgba(15, 23, 42, 0.8);">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <input type="email" name="email" class="form-input" 
+                           placeholder="your.email@example.com" required
+                           style="background: rgba(15, 23, 42, 0.8);">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-lock"></i> Secret Password
+                    </label>
+                    <input type="password" name="password" class="form-input" 
+                           placeholder="Create a strong password" required
+                           style="background: rgba(15, 23, 42, 0.8);">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-shield-alt"></i> Confirm Password
+                    </label>
+                    <input type="password" name="confirm_password" class="form-input" 
+                           placeholder="Confirm your password" required
+                           style="background: rgba(15, 23, 42, 0.8);">
+                </div>
+
+                <!-- Fitness Goals Section -->
+                <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 15px; padding: 1.5rem; margin: 1.5rem 0;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 1rem; text-align: center;">
+                        <i class="fas fa-target"></i> What's Your Fitness Goal?
+                    </h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem;">
+                        <label style="display: flex; align-items: center; color: var(--text-light); cursor: pointer;">
+                            <input type="radio" name="fitness_goal" value="weight_loss" style="margin-right: 0.5rem;">
+                            🔥 Weight Loss
+                        </label>
+                        <label style="display: flex; align-items: center; color: var(--text-light); cursor: pointer;">
+                            <input type="radio" name="fitness_goal" value="muscle_building" style="margin-right: 0.5rem;">
+                            💪 Muscle Building
+                        </label>
+                        <label style="display: flex; align-items: center; color: var(--text-light); cursor: pointer;">
+                            <input type="radio" name="fitness_goal" value="strength" style="margin-right: 0.5rem;">
+                            🏋️ Strength
+                        </label>
+                        <label style="display: flex; align-items: center; color: var(--text-light); cursor: pointer;">
+                            <input type="radio" name="fitness_goal" value="endurance" style="margin-right: 0.5rem;">
+                            🏃 Endurance
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; font-size: 1.1rem;">
+                    <i class="fas fa-rocket"></i> Launch My Fitness Journey
+                </button>
+
+            </form>
+
+            <!-- Login Link -->
+            <div style="text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(99, 102, 241, 0.2);">
+                <p style="color: var(--text-gray); margin-bottom: 1rem;">
+                    Already part of the revolution?
+                </p>
+                <a href="/login" class="btn btn-secondary">
+                    <i class="fas fa-sign-in-alt"></i> Login Here
+                </a>
+            </div>
+
+            <!-- Features Preview -->
+            <div style="margin-top: 2rem;">
+                <h4 style="color: var(--text-light); text-align: center; margin-bottom: 1rem;">
+                    <i class="fas fa-gift"></i> What You'll Get
+                </h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                    <div style="text-align: center; padding: 1rem; background: rgba(99, 102, 241, 0.1); border-radius: 10px;">
+                        <i class="fas fa-brain" style="font-size: 2rem; color: var(--secondary-color); margin-bottom: 0.5rem;"></i>
+                        <p style="color: var(--text-gray); margin: 0; font-size: 0.9rem;">AI-Powered Plans</p>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: rgba(99, 102, 241, 0.1); border-radius: 10px;">
+                        <i class="fas fa-chart-line" style="font-size: 2rem; color: var(--accent-color); margin-bottom: 0.5rem;"></i>
+                        <p style="color: var(--text-gray); margin: 0; font-size: 0.9rem;">Progress Tracking</p>
+                    </div>
+                    <div style="text-align: center; padding: 1rem; background: rgba(99, 102, 241, 0.1); border-radius: 10px;">
+                        <i class="fas fa-users" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;"></i>
+                        <p style="color: var(--text-gray); margin: 0; font-size: 0.9rem;">Community Support</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="sparkle" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
+    <div class="sparkle" style="top: 30%; left: 80%; animation-delay: 0.8s;"></div>
+    <div class="sparkle" style="top: 70%; left: 15%; animation-delay: 1.6s;"></div>
+    <div class="sparkle" style="top: 50%; left: 85%; animation-delay: 2.4s;"></div>
+    <div class="sparkle" style="top: 20%; left: 50%; animation-delay: 3.2s;"></div>
+    <div class="sparkle" style="top: 80%; left: 70%; animation-delay: 4s;"></div>
+
+    <script>
+        // Add custom animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+            @keyframes bounceIn {
+                0% { transform: scale(0.3); opacity: 0; }
+                50% { transform: scale(1.05); }
+                70% { transform: scale(0.9); }
+                100% { transform: scale(1); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Form validation with visual feedback
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const username = document.querySelector('input[name="username"]').value.trim();
+            const email = document.querySelector('input[name="email"]').value.trim();
+            const password = document.querySelector('input[name="password"]').value.trim();
+            const confirmPassword = document.querySelector('input[name="confirm_password"]').value.trim();
+            
+            if (!username || !email || !password || !confirmPassword) {
+                e.preventDefault();
+                showNotification('Please fill in all fields! 💪', 'error');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                showNotification('Passwords do not match! 🔐', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                e.preventDefault();
+                showNotification('Password must be at least 6 characters! 🛡️', 'error');
+                return;
+            }
+
+            // Show loading state
+            const submitBtn = document.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<span class="loading"></span> Creating your account...';
+            submitBtn.disabled = true;
+        });
+
+        // Password strength indicator
+        document.querySelector('input[name="password"]').addEventListener('input', function(e) {
+            const password = e.target.value;
+            const strength = getPasswordStrength(password);
+            
+            // Remove existing indicator
+            const existingIndicator = document.querySelector('.password-strength');
+            if (existingIndicator) {
+                existingIndicator.remove();
+            }
+
+            if (password.length > 0) {
+                const indicator = document.createElement('div');
+                indicator.className = 'password-strength';
+                indicator.style.cssText = `
+                    margin-top: 0.5rem;
+                    padding: 0.5rem;
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                    text-align: center;
+                `;
+
+                let color, text;
+                switch(strength) {
+                    case 'weak':
+                        color = 'linear-gradient(135deg, #ff4444 0%, #cc0000 100%)';
+                        text = '🔴 Weak - Add more characters';
+                        break;
+                    case 'medium':
+                        color = 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)';
+                        text = '🟡 Medium - Getting better';
+                        break;
+                    case 'strong':
+                        color = 'linear-gradient(135deg, #00c851 0%, #007e33 100%)';
+                        text = '🟢 Strong - Great password!';
+                        break;
+                }
+
+                indicator.style.background = color;
+                indicator.style.color = 'white';
+                indicator.innerHTML = text;
+
+                e.target.parentNode.appendChild(indicator);
+            }
+        });
+
+        function getPasswordStrength(password) {
+            if (password.length < 6) return 'weak';
+            if (password.length < 10) return 'medium';
+            return 'strong';
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                color: white;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideInRight 0.5s ease;
+                max-width: 300px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            `;
+
+            const colors = {
+                success: 'linear-gradient(135deg, #00c851 0%, #007e33 100%)',
+                error: 'linear-gradient(135deg, #ff4444 0%, #cc0000 100%)',
+                info: 'linear-gradient(135deg, #33b5e5 0%, #0099cc 100%)'
+            };
+
+            notification.style.background = colors[type] || colors.info;
+            notification.innerHTML = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.5s ease';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 500);
+            }, 4000);
+        }
+
+        // Add animation keyframes
+        const animationStyle = document.createElement('style');
+        animationStyle.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(animationStyle);
+
+        // Auto-focus first field
+        document.addEventListener('DOMContentLoaded', function() {
+            const usernameField = document.querySelector('input[name="username"]');
+            if (usernameField) {
+                setTimeout(() => usernameField.focus(), 500);
+            }
+
+            showNotification('Ready to transform your life? Let\'s go! 🚀', 'success');
+        });
+    </script>
+</body>
+
+</html>

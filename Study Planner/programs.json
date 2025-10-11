@@ -1,0 +1,143 @@
+{
+  "stack 2": {
+    "topic": "stack 2",
+    "level": "Beginner",
+    "days": 3,
+    "hours": 4,
+    "plan": [
+      {
+        "task": "Understand the concept of a stack data structure and its LIFO principle.",
+        "cheat": "* LIFO (Last-In, First-Out)\n* Key operations: push, pop, peek, isEmpty\n* Use cases: function call stack, undo/redo functionality",
+        "completed": true
+      },
+      {
+        "task": "Implement a stack using arrays and linked lists in Python.",
+        "cheat": "* Array implementation: append() for push, pop() for pop\n* Linked list implementation:  create Node class, head pointer, push/pop methods\n* Consider edge cases (empty stack)",
+        "completed": true
+      },
+      {
+        "task": "Solve problems involving stack operations and applications like balanced parentheses and reversing a string.",
+        "cheat": "* Balanced Parentheses: use a stack to track opening brackets, match with closing brackets\n* String Reversal: push characters onto stack, pop and concatenate for reversal\n* Consider efficiency of different approaches",
+        "completed": false
+      }
+    ]
+  },
+  "Machine Learning": {
+    "topic": "Machine Learning",
+    "level": "Beginner",
+    "days": 6,
+    "hours": 2,
+    "start_date": "2025-07-22",
+    "plan_text": [],
+    "completed_days": [],
+    "cheats": {}
+  },
+  "Machine learning": {
+    "topic": "Machine learning",
+    "level": "Intermediate",
+    "days": 7,
+    "hours": 2,
+    "plan": [
+      {
+        "task": "Review fundamental concepts of probability and linear algebra relevant to ML",
+        "cheat": "* Probability distributions (normal, binomial)\n* Linear transformations\n* Eigenvalues and eigenvectors",
+        "completed": true
+      },
+      {
+        "task": "Deep dive into Regression models (Linear, Polynomial, Ridge, Lasso)",
+        "cheat": "* Ordinary Least Squares (OLS)\n* Regularization techniques (L1, L2)\n* Bias-variance tradeoff",
+        "completed": true
+      },
+      {
+        "task": "Explore Classification algorithms (Logistic Regression, Support Vector Machines)",
+        "cheat": "* Logistic function and its properties\n* SVM: hyperplanes, kernels (linear, RBF)\n* Model evaluation metrics (precision, recall, F1-score)",
+        "completed": true
+      },
+      {
+        "task": "TEST: Practice problems on Regression and Classification",
+        "cheat": null,
+        "completed": true
+      },
+      {
+        "task": "Understand the basics of ensemble methods (Bagging, Boosting)",
+        "cheat": "* Random Forest: bagging and feature randomness\n* AdaBoost: iterative weighting of misclassified instances\n* Gradient Boosting: sequential model fitting",
+        "completed": true
+      },
+      {
+        "task": "Learn about dimensionality reduction techniques (PCA, t-SNE)",
+        "cheat": "* Principal Component Analysis (PCA): variance maximization\n* t-distributed Stochastic Neighbor Embedding (t-SNE): visualization",
+        "completed": true
+      },
+      {
+        "task": "Revision of all topics covered this week. Focus on weak areas.",
+        "cheat": null,
+        "completed": false
+      }
+    ]
+  },
+  "Data Structure": {
+    "topic": "Data Structure",
+    "level": "Beginner",
+    "days": 5,
+    "hours": 2,
+    "plan": [
+      {
+        "task": "Introduction to Data Structures and Algorithms",
+        "cheat": "* What is a data structure?\n* Basic algorithm concepts\n* Time and space complexity (Big O notation - basic understanding)",
+        "completed": true
+      },
+      {
+        "task": "Arrays and their operations",
+        "cheat": "* Declaration and initialization\n* Accessing elements\n* Basic array operations (insertion, deletion, searching)",
+        "completed": false
+      },
+      {
+        "task": "Test on Arrays and Basic Concepts",
+        "cheat": null,
+        "completed": false
+      },
+      {
+        "task": "Linked Lists: Introduction and Singly Linked Lists",
+        "cheat": "* Nodes and pointers\n* Traversal\n* Insertion and deletion at the beginning, end, and middle",
+        "completed": false
+      },
+      {
+        "task": "Linked Lists: Doubly Linked Lists and Circular Linked Lists",
+        "cheat": "* Doubly linked list structure\n* Circular linked list structure\n* Advantages and disadvantages of each type",
+        "completed": false
+      }
+    ]
+  },
+  "Queue": {
+    "topic": "Queue",
+    "level": "Beginner",
+    "days": 2,
+    "hours": 2,
+    "plan": []
+  },
+  "stack": {
+    "topic": "stack",
+    "level": "Beginner",
+    "days": 2,
+    "hours": 2,
+    "plan": []
+  },
+  "Stack": {
+    "topic": "Stack",
+    "level": "Beginner",
+    "days": 2,
+    "hours": 2,
+    "plan": [
+      {
+        "task": "Understand the concept of a stack and its LIFO principle.",
+        "cheat": "* LIFO (Last-In, First-Out)\n* Key operations: push, pop, peek, isEmpty\n* Use cases: function calls, undo/redo functionality",
+        "completed": true
+      },
+      {
+        "task": "Implement a stack using an array and a linked list, and analyze their time and space complexities.",
+        "cheat": "* Array implementation: push/pop at the end, O(1) time complexity\n* Linked list implementation: push/pop at the head, O(1) time complexity\n* Space complexity depends on the number of elements",
+        "completed": false
+      }
+    ]
+  }
+}

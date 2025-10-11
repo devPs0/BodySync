@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress & Fitness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-blue-600">💪Bodysync</h1>
+            <ul class="flex space-x-6">
+                <li><a href="/" class="hover:text-blue-600">Home</a></li>
+                <li><a href="/my_workouts" class="hover:text-blue-600">My Workouts</a></li>
+                <li><a href="/progress_fitness" class="text-blue-600 font-semibold">Progress</a></li>
+                <li><a href="/goals" class="hover:text-blue-600">Goals</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto py-8 px-4">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Your Fitness Progress</h1>
+            <p class="text-gray-600">Track your journey to better health</p>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="grid md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">Total Workouts</h3>
+                <p class="text-3xl font-bold text-blue-600" id="totalPrograms">-</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">Completed Sessions</h3>
+                <p class="text-3xl font-bold text-green-600" id="completedDays">-</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">Pending Sessions</h3>
+                <p class="text-3xl font-bold text-yellow-600" id="pendingDays">-</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">Current Streak</h3>
+                <p class="text-3xl font-bold text-red-600" id="currentStreak">-</p>
+            </div>
+        </div>
+
+        <!-- Achievements Section -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Your Achievements</h2>
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold">Current Streak</h3>
+                    <p class="text-2xl font-bold text-blue-700" id="dynamicStreak">-</p>
+                    <p class="text-sm text-gray-600">Days</p>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold">Badge</h3>
+                    <p class="text-2xl font-bold text-yellow-600" id="dynamicBadge">-</p>
+                    <p class="text-sm text-gray-600">Level</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold">Progress</h3>
+                    <p class="text-2xl font-bold text-green-600" id="dynamicProgress">-</p>
+                    <p class="text-sm text-gray-600">Overall</p>
+                </div>
+            </div>
+            <div class="text-center mt-6">
+                <blockquote id="motivationalQuote" class="text-lg italic text-gray-700">
+                    "Every rep counts! Keep pushing! 💪"
+                </blockquote>
+            </div>
+        </div>
+
+        <!-- Workout Progress Report -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Workout Report</h2>
+
+            <div class="mb-4">
+                <label for="program_selector" class="block mb-2 font-medium">Select Workout Program:</label>
+                <select id="program_selector" onchange="updateProgramReport()" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">Choose a workout...</option>
+                </select>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-6 mb-6 text-center">
+                <div>
+                    <p class="text-sm text-gray-500">Total Days</p>
+                    <p class="text-xl font-bold text-gray-700" id="p_total">-</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Completed</p>
+                    <p class="text-xl font-bold text-green-600" id="p_completed">-</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Pending</p>
+                    <p class="text-xl font-bold text-yellow-500" id="p_pending">-</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Streak</p>
+                    <p class="text-xl font-bold text-red-600" id="p_streak">-</p>
+                </div>
+            </div>
+
+            <div class="w-full flex justify-center">
+                <canvas id="progressChart" class="max-w-[250px] max-h-[250px]"></canvas>
+            </div>
+        </div>
+
+        <!-- Fitness Assessment Generator -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Auto Fitness Assessment</h2>
+
+            <div class="grid md:grid-cols-3 gap-4 mb-4">
+                <div>
+                    <label for="test_topic" class="block font-medium mb-1">Workout Type</label>
+                    <select id="test_topic" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">Select workout type...</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="test_level" class="block font-medium mb-1">Level</label>
+                    <select id="test_level" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="test_questions" class="block font-medium mb-1"># of Questions</label>
+                    <input type="number" id="test_questions" value="5" min="1" max="20" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+
+            <button onclick="generateTest()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md transition">
+                Generate Assessment
+            </button>
+
+            <div class="mt-6">
+                <h3 class="text-xl font-semibold mb-2 text-gray-700">Assessment Output</h3>
+                <div id="testOutput" class="space-y-2 bg-gray-50 p-4 rounded-md border text-sm min-h-[100px]">
+                    Click "Generate Assessment" to create custom fitness questions
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let allProgramData = {};
+
+        function loadProgress() {
+            fetch('/get_progress')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById("totalPrograms").innerText = data.total_programs;
+                        document.getElementById("completedDays").innerText = data.completed_days;
+                        document.getElementById("pendingDays").innerText = data.pending_days;
+                        document.getElementById("currentStreak").innerText = data.streak;
+
+                        const selector = document.getElementById("program_selector");
+                        selector.innerHTML = '<option value="">Choose a workout...</option>';
+                        for (let topic in data.program_data) {
+                            const option = document.createElement("option");
+                            option.value = topic;
+                            option.textContent = topic;
+                            selector.appendChild(option);
+                        }
+
+                        allProgramData = data.program_data;
+                        if (Object.keys(data.program_data).length > 0) {
+                            selector.value = Object.keys(data.program_data)[0];
+                            updateProgramReport();
+                        }
+                    }
+                })
+                .catch(error => console.error('Error loading progress:', error));
+        }
+
+        function updateProgramReport() {
+            const topic = document.getElementById("program_selector").value;
+            if (!topic || !allProgramData[topic]) return;
+
+            const prog = allProgramData[topic];
+
+            document.getElementById("p_total").innerText = prog.total_days;
+            document.getElementById("p_completed").innerText = prog.completed;
+            document.getElementById("p_pending").innerText = prog.pending;
+            document.getElementById("p_streak").innerText = prog.streak;
+
+            if (window.progressChartInstance) {
+                window.progressChartInstance.destroy();
+            }
+
+            const ctx = document.getElementById("progressChart").getContext('2d');
+            window.progressChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Completed', 'Pending'],
+                    datasets: [{
+                        data: [prog.completed, prog.pending],
+                        backgroundColor: ['#10b981', '#facc15']
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom'
+                        }
+                    },
+                    cutout: '70%',
+                }
+            });
+        }
+
+        function loadTopicsForTest() {
+            fetch('/get_workouts')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        const select = document.getElementById("test_topic");
+                        select.innerHTML = '<option value="">Select workout type...</option>';
+                        data.topics.forEach(topic => {
+                            const opt = document.createElement("option");
+                            opt.value = topic;
+                            opt.textContent = topic;
+                            select.appendChild(opt);
+                        });
+                    }
+                })
+                .catch(error => console.error('Error loading topics:', error));
+        }
+
+        function generateTest() {
+            const topic = document.getElementById("test_topic").value;
+            const level = document.getElementById("test_level").value;
+            const questions = parseInt(document.getElementById("test_questions").value);
+
+            if (!topic) {
+                document.getElementById("testOutput").innerHTML = '<p class="text-red-500">Please select a workout type first.</p>';
+                return;
+            }
+
+            document.getElementById("testOutput").innerHTML = '<p class="text-blue-500">Generating assessment...</p>';
+
+            fetch('/generate_test', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        topic,
+                        level,
+                        questions
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    const box = document.getElementById("testOutput");
+                    box.innerHTML = "";
+                    if (data.success && data.questions) {
+                        data.questions.forEach((q, index) => {
+                            const p = document.createElement("p");
+                            p.innerHTML = `<strong>Q${index + 1}:</strong> ${q}`;
+                            p.className = "mb-2 p-2 bg-white rounded border-l-4 border-blue-500";
+                            box.appendChild(p);
+                        });
+                    } else {
+                        box.innerHTML = '<p class="text-red-500">Error generating assessment. Please try again.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error generating test:', error);
+                    document.getElementById("testOutput").innerHTML = '<p class="text-red-500">Failed to connect to the server.</p>';
+                });
+        }
+
+        function loadDynamicStats() {
+            fetch('/api/streak_achievements')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("dynamicStreak").innerText = data.streak || "0";
+                    document.getElementById("dynamicBadge").innerText = data.badge || "Beginner";
+                    document.getElementById("dynamicProgress").innerText = data.progress || "0%";
+                    document.getElementById("motivationalQuote").innerText = `"${data.quote || 'Every rep counts! Keep pushing!'}"`;
+                })
+                .catch(error => console.error('Error loading dynamic stats:', error));
+        }
+
+        window.onload = function() {
+            loadProgress();
+            loadTopicsForTest();
+            loadDynamicStats();
+        };
+    </script>
+</body>
+
+</html>

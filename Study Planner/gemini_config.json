@@ -1,0 +1,5 @@
+{
+  "api_key": "AIzaSyC_o683zWGVRcixvelJXeOwZR17V43YJSk",
+  "model_name": "models/gemini-1.5-flash",
+  "updated_at": "nt.times_result(user=0.375, system=1.140625, children_user=0.0, children_system=0.0, elapsed=0.0)"
+}

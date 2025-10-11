@@ -1,0 +1,204 @@
+{
+  "Java Programming": {
+    "topic": "Java Programming",
+    "level": "Beginner",
+    "days": 30,
+    "hours": 2,
+    "plan": [
+      {
+        "task": "Understand Java ecosystem: JVM, JRE, JDK, and basic setup.",
+        "cheat": "• Java is platform-independent\n• JVM executes bytecode\n• JRE = JVM + libraries\n• JDK = JRE + dev tools",
+        "completed": true
+      },
+      {
+        "task": "Write and compile your first 'Hello World' program, understand main method and basic syntax.",
+        "cheat": "• `public static void main(String[] args)` is entry point\n• `System.out.println()` for console output\n• Semicolons `;` terminate statements",
+        "completed": true
+      },
+      {
+        "task": "Take a self-assessment test on Java basics: ecosystem, 'Hello World' syntax, and compilation.",
+        "cheat": "• Review definitions of JVM, JRE, JDK\n• Practice writing a simple `main` method\n• Understand the `javac` and `java` commands",
+        "completed": true
+      },
+      {
+        "task": "Learn primitive data types (int, float, double, char, boolean) and variable declaration/initialization.",
+        "cheat": "• `int age = 25;`\n• `float price = 19.99f;`\n• `boolean isActive = true;`\n• Choose appropriate type for data",
+        "completed": true
+      },
+      {
+        "task": "Study arithmetic, relational, logical, and assignment operators.",
+        "cheat": "• `+ - * / %` (arithmetic)\n• `== != > < >= <=` (relational)\n• `&& || !` (logical)\n• `=` `+= -= *= /= %=` (assignment)",
+        "completed": true
+      },
+      {
+        "task": "Read input from the console using the Scanner class and basic output formatting.",
+        "cheat": "• `import java.util.Scanner;`\n• `Scanner input = new Scanner(System.in);`\n• `int num = input.nextInt();`\n• `String text = input.nextLine();`",
+        "completed": true
+      },
+      {
+        "task": "Review all concepts from Day 1 to Day 6, focusing on variables, operators, and basic I/O.",
+        "cheat": "• Go over notes on Java basics, data types, operator precedence, and using Scanner for input\n• Practice small programs combining these elements",
+        "completed": true
+      },
+      {
+        "task": "Learn `if`, `else if`, and `else` conditional statements.",
+        "cheat": "• `if (condition) { ... } else if (condition2) { ... } else { ... }`\n• Conditions must evaluate to a boolean value",
+        "completed": true
+      },
+      {
+        "task": "Understand the `switch` statement and the importance of the `break` keyword.",
+        "cheat": "• `switch (expression) { case value1: ... break; case value2: ... break; default: ... }`\n• `break` prevents fall-through to next case",
+        "completed": true
+      },
+      {
+        "task": "Take a self-assessment test on conditional logic, operators, and variable usage.",
+        "cheat": "• Practice writing programs that use `if-else` and `switch` statements\n• Solve problems requiring logical decisions based on input",
+        "completed": true
+      },
+      {
+        "task": "Study the `for` loop syntax and common use cases.",
+        "cheat": "• `for (initialization; condition; increment) { ... }`\n• Ideal when the number of iterations is known beforehand",
+        "completed": true
+      },
+      {
+        "task": "Learn `while` and `do-while` loops, understanding their differences.",
+        "cheat": "• `while (condition) { ... }` (checks condition before first iteration)\n• `do { ... } while (condition);` (executes body at least once)",
+        "completed": true
+      },
+      {
+        "task": "Understand `break` and `continue` statements for controlling loop flow.",
+        "cheat": "• `break;` immediately exits the innermost loop\n• `continue;` skips the rest of the current iteration and proceeds to the next"
+      },
+      {
+        "task": "Review all concepts from Day 8 to Day 13, including conditional statements and all loop types.",
+        "cheat": "• Revisit `if-else` vs `switch` decision making\n• Practice choosing the correct loop type for different scenarios\n• Understand the impact of `break` and `continue` on loop execution"
+      },
+      {
+        "task": "Declare, initialize, and access elements of one-dimensional arrays.",
+        "cheat": "• `dataType[] arrayName = new dataType[size];`\n• `arrayName[index]` to access an element (0-indexed)\n• `arrayName.length` property for array size"
+      },
+      {
+        "task": "Define and call methods (functions), understanding parameters and return types.",
+        "cheat": "• `public static returnType methodName(parameters) { ... return value; }`\n• Methods promote code reusability and modularity"
+      },
+      {
+        "task": "Take a self-assessment test on arrays, loops, and basic method creation.",
+        "cheat": "• Practice manipulating array elements (sum, min, max, search)\n• Write methods that take parameters and return values, incorporating loops and conditionals"
+      },
+      {
+        "task": "Learn method overloading: defining multiple methods with the same name but different parameters.",
+        "cheat": "• Compiler distinguishes overloaded methods by their signature (name + parameter types/order)\n• Improves code readability by using a single name for similar operations"
+      },
+      {
+        "task": "Introduction to Object-Oriented Programming (OOP) concepts: Class, Object, Encapsulation, Abstraction, Inheritance, Polymorphism.",
+        "cheat": "• Class (blueprint), Object (instance)\n• Encapsulation (data hiding)\n• Abstraction (simplification)\n• Inheritance (is-a relationship)\n• Polymorphism (many forms)"
+      },
+      {
+        "task": "Define custom classes, create objects, and understand instance variables and methods.",
+        "cheat": "• `class MyClass { int x; String name; void myMethod() {} }`\n• `MyClass obj = new MyClass();` (object creation)\n• `obj.x = 10;` (accessing instance variables/methods)"
+      },
+      {
+        "task": "Review method overloading and the core principles of OOP (Class, Object, Encapsulation, Abstraction, Inheritance, Polymorphism).",
+        "cheat": "• Understand why method overloading is useful\n• Summarize each of the five core OOP principles with a small example\n• Practice creating simple classes and objects"
+      },
+      {
+        "task": "Study constructors (default and parameterized) and the `this` keyword.",
+        "cheat": "• Constructors initialize objects, have same name as class, no return type\n• `this` keyword refers to the current object instance\n• `this()` can call other constructors within the same class"
+      },
+      {
+        "task": "Understand Java's access modifiers: `public`, `private`, `protected`, and default (package-private).",
+        "cheat": "• `public`: accessible from anywhere\n• `private`: accessible only within the same class\n• `protected`: accessible within the package and by subclasses\n• Default (no keyword): accessible only within the package"
+      },
+      {
+        "task": "Take a self-assessment test on OOP basics: classes, objects, constructors, and access modifiers.",
+        "cheat": "• Design classes with instance variables and methods\n• Create objects using different constructors\n• Apply appropriate access modifiers to fields and methods"
+      },
+      {
+        "task": "Learn inheritance using the `extends` keyword and the `super` keyword.",
+        "cheat": "• `class Child extends Parent { ... }` (Child inherits from Parent)\n• `super()` calls the parent class's constructor\n• `super.method()` calls a method from the parent class"
+      },
+      {
+        "task": "Explore polymorphism: method overriding and runtime polymorphism (dynamic method dispatch).",
+        "cheat": "• Overriding: redefining a superclass method in a subclass with same signature\n• Use `@Override` annotation for clarity\n• Runtime polymorphism: ability of object to take many forms at runtime"
+      },
+      {
+        "task": "Understand abstraction using abstract classes and abstract methods.",
+        "cheat": "• `abstract class Shape { abstract void draw(); }`\n• Abstract classes cannot be instantiated\n• Abstract methods have no body and must be implemented by concrete subclasses"
+      },
+      {
+        "task": "Review Inheritance, Polymorphism, and Abstraction. Understand their real-world applications and differences.",
+        "cheat": "• Differentiate between method overloading and overriding\n• Explain the role of `super` and `this` in inheritance\n• Understand when to use abstract classes vs. concrete classes"
+      },
+      {
+        "task": "Define and implement interfaces to achieve multiple inheritance of type.",
+        "cheat": "• `interface Drawable { void draw(); }` (defines a contract)\n• `class Circle implements Drawable { ... }` (provides implementation)\n• Methods in interfaces are implicitly `public abstract` (Java 8+ allows default/static methods)"
+      },
+      {
+        "task": "Introduction to exception handling using `try-catch-finally` blocks.",
+        "cheat": "• `try { riskyCode(); } catch (ExceptionType e) { handleException(); } finally { cleanUp(); }`\n• `try`: block of code to monitor for errors\n• `catch`: handles specific exception types\n• `finally`: block that always executes"
+      }
+    ],
+    "completed_days": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "last_completed_date": null,
+    "streak_count": 0
+  },
+  "DBMS": {
+    "topic": "DBMS",
+    "level": "Advanced",
+    "days": 7,
+    "hours": 2,
+    "plan": [
+      {
+        "task": "Study 'DBMS' - Day 1 focus",
+        "cheat": "• Key points\n• Practice problems\n• Short recap",
+        "completed": false
+      },
+      {
+        "task": "Study 'DBMS' - Day 2 focus",
+        "cheat": "• Key points\n• Practice problems\n• Short recap",
+        "completed": false
+      },
+      {
+        "task": "Study 'DBMS' - Day 3 focus",
+        "cheat": "• Key points\n• Practice problems\n• Short recap",
+        "completed": false
+      },
+      {
+        "task": "Study 'DBMS' - Day 4 focus",
+        "cheat": "• Key points\n• Practice problems\n• Short recap",
+        "completed": false
+      },
+      {
+        "task": "Study 'DBMS' - Day 5 focus",
+        "cheat": "• Key points\n• Practice problems\n• Short recap",
+        "completed": false
+      },
+      {
+        "task": "Study 'DBMS' - Day 6 focus",
+        "cheat": "• Key points\n• Practice problems\n• Short recap",
+        "completed": false
+      },
+      {
+        "task": "Study 'DBMS' - Day 7 focus",
+        "cheat": "• Key points\n• Practice problems\n• Short recap",
+        "completed": false
+      }
+    ],
+    "completed_days": [],
+    "last_completed_date": null,
+    "streak_count": 0
+  }
+}

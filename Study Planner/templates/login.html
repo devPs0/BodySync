@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Login - AI Gym Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='anime-style.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Main Container -->
+    <div class="main-container" style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        
+        <!-- Login Card -->
+        <div class="form-container" style="max-width: 450px; width: 100%; animation: fadeInUp 0.8s ease;">
+            
+            <!-- Logo Section -->
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div class="logo" style="font-size: 2.5rem; margin-bottom: 1rem;">
+                    <i class="fas fa-dumbbell"></i>
+                    AI Gym Planner
+                </div>
+                <h2 style="color: var(--text-light); margin: 0;">
+                    <i class="fas fa-rocket"></i> Power Up Your Journey!
+                </h2>
+                <p style="color: var(--text-gray); margin-top: 0.5rem;">
+                    Enter your credentials to unlock your fitness potential
+                </p>
+            </div>
+
+            <!-- Error Message -->
+            {% if error %}
+            <div style="background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%); color: white; padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem; text-align: center; animation: shake 0.5s ease;">
+                <i class="fas fa-exclamation-triangle"></i> {{ error }}
+            </div>
+            {% endif %}
+
+            <!-- Login Form -->
+            <form method="POST" style="animation: fadeInUp 0.8s ease 0.2s both;">
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-user"></i> Username
+                    </label>
+                    <input type="text" name="username" class="form-input" 
+                           placeholder="Enter your username" required
+                           style="background: rgba(15, 23, 42, 0.8);">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input type="password" name="password" class="form-input" 
+                           placeholder="Enter your password" required
+                           style="background: rgba(15, 23, 42, 0.8);">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; font-size: 1.1rem;">
+                    <i class="fas fa-sign-in-alt"></i> Login & Start Training
+                </button>
+
+            </form>
+
+            <!-- Register Link -->
+            <div style="text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(99, 102, 241, 0.2);">
+                <p style="color: var(--text-gray); margin-bottom: 1rem;">
+                    New to the gym? Join the fitness revolution!
+                </p>
+                <a href="/register" class="btn btn-secondary">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </a>
+            </div>
+
+            <!-- Quick Login Info -->
+            <div style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 10px; padding: 1rem; margin-top: 1.5rem; text-align: center;">
+                <p style="color: var(--text-gray); margin: 0; font-size: 0.9rem;">
+                    <i class="fas fa-info-circle"></i> Demo Account Available
+                </p>
+                <p style="color: var(--text-light); margin: 0.5rem 0 0 0; font-weight: 600;">
+                    Username: <span style="color: var(--secondary-color);">gymuser</span> | 
+                    Password: <span style="color: var(--secondary-color);">password123</span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="sparkle" style="top: 15%; left: 15%; animation-delay: 0s;"></div>
+    <div class="sparkle" style="top: 25%; left: 85%; animation-delay: 0.7s;"></div>
+    <div class="sparkle" style="top: 75%; left: 20%; animation-delay: 1.4s;"></div>
+    <div class="sparkle" style="top: 65%; left: 80%; animation-delay: 2.1s;"></div>
+    <div class="sparkle" style="top: 40%; left: 10%; animation-delay: 2.8s;"></div>
+
+    <script>
+        // Add shake animation for error
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Welcome message
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-focus username field
+            const usernameField = document.querySelector('input[name="username"]');
+            if (usernameField) {
+                setTimeout(() => usernameField.focus(), 500);
+            }
+        });
+
+        // Add form validation with visual feedback
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const username = document.querySelector('input[name="username"]').value.trim();
+            const password = document.querySelector('input[name="password"]').value.trim();
+            
+            if (!username || !password) {
+                e.preventDefault();
+                showNotification('Please fill in all fields! 💪', 'error');
+                return;
+            }
+
+            // Show loading state
+            const submitBtn = document.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<span class="loading"></span> Logging in...';
+            submitBtn.disabled = true;
+        });
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                color: white;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideInRight 0.5s ease;
+                max-width: 300px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            `;
+
+            const colors = {
+                success: 'linear-gradient(135deg, #00c851 0%, #007e33 100%)',
+                error: 'linear-gradient(135deg, #ff4444 0%, #cc0000 100%)',
+                info: 'linear-gradient(135deg, #33b5e5 0%, #0099cc 100%)'
+            };
+
+            notification.style.background = colors[type] || colors.info;
+            notification.innerHTML = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.5s ease';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 500);
+            }, 4000);
+        }
+
+        // Add animation keyframes
+        const animationStyle = document.createElement('style');
+        animationStyle.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(animationStyle);
+    </script>
+</body>
+
+</html>

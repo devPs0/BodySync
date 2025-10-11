@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Gym Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-blue-600">💪 My Gym Planner</h1>
+            <ul class="flex space-x-6">
+                <li><a href="/" class="text-blue-600 font-semibold">Home</a></li>
+                <li><a href="/my_workouts" class="hover:text-blue-600">My Workouts</a></li>
+                <li><a href="/progress_fitness" class="hover:text-blue-600">Progress</a></li>
+                <li><a href="/goals" class="hover:text-blue-600">Goals</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto py-8 px-4">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Welcome to Your Gym Planner</h1>
+            <p class="text-gray-600 text-lg">Create personalized workout plans with AI assistance</p>
+        </div>
+
+        <!-- Workout Generator Form -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Generate Your Workout Plan</h2>
+
+            <form method="POST" action="/generate_workout" class="space-y-4">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="goal" class="block text-sm font-medium text-gray-700 mb-2">Fitness Goal</label>
+                        <select name="goal" id="goal" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Select your goal...</option>
+                            <option value="Weight Loss">Weight Loss</option>
+                            <option value="Muscle Building">Muscle Building</option>
+                            <option value="Strength Training">Strength Training</option>
+                            <option value="Endurance">Endurance</option>
+                            <option value="General Fitness">General Fitness</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="experience" class="block text-sm font-medium text-gray-700 mb-2">Experience Level</label>
+                        <select name="experience" id="experience" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Select level...</option>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="equipment" class="block text-sm font-medium text-gray-700 mb-2">Available Equipment</label>
+                        <select name="equipment" id="equipment" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Select equipment...</option>
+                            <option value="Full Gym">Full Gym Access</option>
+                            <option value="Home Gym">Home Gym</option>
+                            <option value="Minimal Equipment">Minimal Equipment</option>
+                            <option value="No Equipment">No Equipment (Bodyweight)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="schedule" class="block text-sm font-medium text-gray-700 mb-2">Workout Schedule</label>
+                        <select name="schedule" id="schedule" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Select schedule...</option>
+                            <option value="3 days/week">3 Days per Week</option>
+                            <option value="4 days/week">4 Days per Week</option>
+                            <option value="5 days/week">5 Days per Week</option>
+                            <option value="6 days/week">6 Days per Week</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="additional_info" class="block text-sm font-medium text-gray-700 mb-2">Additional Information (Optional)</label>
+                    <textarea name="additional_info" id="additional_info" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Any specific preferences, limitations, or goals..."></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700 transition font-semibold">
+                    Generate Workout Plan
+                </button>
+            </form>
+        </div>
+
+        <!-- Generated Workout Display -->
+        
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-gray-800">Your Workout Plan</h2>
+                <button onclick="saveWorkout()" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                    Save Workout
+                </button>
+            </div>
+
+            <div class="workout-content">
+                <div class="mb-4 p-4 bg-blue-50 rounded-lg">
+                    <h3 class="font-semibold text-blue-800">Goal: Weight Loss</h3>
+                    <p class="text-blue-600">Weight Loss workout plan for Beginner level with Basic</p>
+                </div>
+
+                <div class="workout-plan">
+                    <div class='workout-day bg-gray-50 p-4 mb-4 rounded-lg'><h3 class='text-lg font-bold text-gray-800 mb-2'>Day 1: Full Body Strength (Upper Focus)</h3><div class='exercises text-gray-700'>• Dumbbell Squats: 3x10-12<br>• Dumbbell Bent-Over Rows: 3x10-12<br>• Push-ups (on knees or elevated): 3x8-12<br>• Dumbbell Overhead Press: 3x10-12<br>• Plank: 3x30-45 seconds<br>• Bicep Curls: 3x10-12</div></div><div class='workout-day bg-gray-50 p-4 mb-4 rounded-lg'><h3 class='text-lg font-bold text-gray-800 mb-2'>Day 2: Low-Impact Cardio & Core</h3><div class='exercises text-gray-700'>• Brisk Walk/Light Jog: 30 minutes<br>• Bicycle Crunches: 3x15-20 per side<br>• Leg Raises: 3x15-20<br>• Russian Twists (with or without dumbbell): 3x15-20 per side</div></div><div class='workout-day bg-gray-50 p-4 mb-4 rounded-lg'><h3 class='text-lg font-bold text-gray-800 mb-2'>Day 3: Full Body Strength (Lower Focus)</h3><div class='exercises text-gray-700'>• Goblet Squats (with dumbbell): 3x10-12<br>• Dumbbell Lunges (per leg): 3x10-12<br>• Dumbbell Floor Press: 3x10-12<br>• Triceps Dips (using a chair): 3x8-12<br>• Glute Bridges: 3x15-20<br>• Calf Raises (with or without dumbbell): 3x15-20</div></div><div class='workout-day bg-gray-50 p-4 mb-4 rounded-lg'><h3 class='text-lg font-bold text-gray-800 mb-2'>Day 4: Active Recovery / Rest</h3><div class='exercises text-gray-700'>• Gentle Stretching/Yoga: 20-30 minutes<br>• Leisurely Walk: 30 minutes</div></div><div class='workout-day bg-gray-50 p-4 mb-4 rounded-lg'><h3 class='text-lg font-bold text-gray-800 mb-2'>Day 5: Full Body Strength (Mixed Focus)</h3><div class='exercises text-gray-700'>• Dumbbell Romanian Deadlifts: 3x10-12<br>• Incline Push-ups (against a wall/bench): 3x10-15<br>• Lateral Raises (dumbbells): 3x12-15<br>• Step-ups (using a chair, per leg): 3x10-12<br>• Side Plank (per side): 3x20-30 seconds<br>• Mountain Climbers: 3x30-45 seconds</div></div><div class='workout-day bg-gray-50 p-4 mb-4 rounded-lg'><h3 class='text-lg font-bold text-gray-800 mb-2'>Day 6: Moderate Cardio & Bodyweight Circuit</h3><div class='exercises text-gray-700'>• Jumping Jacks: 3x45 seconds<br>• High Knees: 3x45 seconds<br>• Bodyweight Squats: 3x15-20<br>• Plank Jacks: 3x30-45 seconds<br>• Butt Kicks: 3x45 seconds<br>• Burpees (modified, without push-up if needed): 3x8-12</div></div><div class='workout-day bg-gray-50 p-4 mb-4 rounded-lg'><h3 class='text-lg font-bold text-gray-800 mb-2'>Day 7: Rest / Light Mobility</h3><div class='exercises text-gray-700'>• Foam Rolling (if available): 10-15 minutes<br>• Dynamic Stretches (leg swings, arm circles): 15-20 minutes<br>• Light Walking: 20-30 minutes</div></div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+    <script>
+        function saveWorkout() {
+            const workoutData = {
+                goal: "Weight Loss",
+                description: "Weight Loss workout plan for Beginner level with Basic",
+                plan: `<div class='workout-day bg-gray-50 p-4 mb-4 rounded-lg'><h3 class='text-lg font-bold text-gray-800 mb-2'>Day 1: Full Body Strength (Upper Focus)</h3><div class='exercises text-gray-700'>• Dumbbell Squats: 3x10-12<br>• Dumbbell Bent-Over Rows: 3x10-12<br>• Push-ups (on knees or elevated): 3x8-12<br>• Dumbbell Overhead Press: 3x10-12<br>• Plank: 3x30-45 seconds<br>• Bicep Curls: 3x10-12</div></div><div class='workout-day bg-gray-50 p-4 mb-4 rounded-lg'><h3 class='text-lg font-bold text-gray-800 mb-2'>Day 2: Low-Impact Cardio & Core</h3><div class='exercises text-gray-700'>• Brisk Walk/Light Jog: 30 minutes<br>• Bicycle Crunches: 3x15-20 per side<br>• Leg Raises: 3x15-20<br>• Russian Twists (with or without dumbbell): 3x15-20 per side</div></div><div class='workout-day bg-gray-50 p-4 mb-4 rounded-lg'><h3 class='text-lg font-bold text-gray-800 mb-2'>Day 3: Full Body Strength (Lower Focus)</h3><div class='exercises text-gray-700'>• Goblet Squats (with dumbbell): 3x10-12<br>• Dumbbell Lunges (per leg): 3x10-12<br>• Dumbbell Floor Press: 3x10-12<br>• Triceps Dips (using a chair): 3x8-12<br>• Glute Bridges: 3x15-20<br>• Calf Raises (with or without dumbbell): 3x15-20</div></div><div class='workout-day bg-gray-50 p-4 mb-4 rounded-lg'><h3 class='text-lg font-bold text-gray-800 mb-2'>Day 4: Active Recovery / Rest</h3><div class='exercises text-gray-700'>• Gentle Stretching/Yoga: 20-30 minutes<br>• Leisurely Walk: 30 minutes</div></div><div class='workout-day bg-gray-50 p-4 mb-4 rounded-lg'><h3 class='text-lg font-bold text-gray-800 mb-2'>Day 5: Full Body Strength (Mixed Focus)</h3><div class='exercises text-gray-700'>• Dumbbell Romanian Deadlifts: 3x10-12<br>• Incline Push-ups (against a wall/bench): 3x10-15<br>• Lateral Raises (dumbbells): 3x12-15<br>• Step-ups (using a chair, per leg): 3x10-12<br>• Side Plank (per side): 3x20-30 seconds<br>• Mountain Climbers: 3x30-45 seconds</div></div><div class='workout-day bg-gray-50 p-4 mb-4 rounded-lg'><h3 class='text-lg font-bold text-gray-800 mb-2'>Day 6: Moderate Cardio & Bodyweight Circuit</h3><div class='exercises text-gray-700'>• Jumping Jacks: 3x45 seconds<br>• High Knees: 3x45 seconds<br>• Bodyweight Squats: 3x15-20<br>• Plank Jacks: 3x30-45 seconds<br>• Butt Kicks: 3x45 seconds<br>• Burpees (modified, without push-up if needed): 3x8-12</div></div><div class='workout-day bg-gray-50 p-4 mb-4 rounded-lg'><h3 class='text-lg font-bold text-gray-800 mb-2'>Day 7: Rest / Light Mobility</h3><div class='exercises text-gray-700'>• Foam Rolling (if available): 10-15 minutes<br>• Dynamic Stretches (leg swings, arm circles): 15-20 minutes<br>• Light Walking: 20-30 minutes</div></div>`,
+                timestamp: new Date().toLocaleDateString()
+            };
+
+            fetch('/save_workout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(workoutData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Workout saved successfully!');
+                    } else {
+                        alert('Error saving workout: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error saving workout');
+                });
+        }
+    </script>
+</body>
+
+</html>

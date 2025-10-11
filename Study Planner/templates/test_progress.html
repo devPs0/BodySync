@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Progress Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold text-center mb-8">🔧 DIAGNOSTIC TEST PAGE</h1>
+
+        <!-- Test Workout Selector -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-bold mb-4">Test Workout Selector</h2>
+            <select id="workoutSelector" onchange="loadWorkoutDays()" class="w-full p-2 border rounded">
+                <option value="">Testing...</option>
+            </select>
+            <div id="debug" class="mt-4 p-4 bg-gray-100 rounded text-sm"></div>
+        </div>
+
+        <!-- Test Delete and Clear Functions -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h3 class="text-lg font-bold mb-4">Test Delete & Clear Functions</h3>
+            <div class="flex gap-2 mb-4">
+                <button onclick="testDeleteWorkout()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                    Delete First Workout
+                </button>
+                <button onclick="testClearAll()" class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800">
+                    Clear All Workouts
+                </button>
+            </div>
+            <div id="deleteDebug" class="p-4 bg-gray-100 rounded text-sm"></div>
+        </div>
+
+        <!-- Test Workout Days -->
+        <div id="workout_days_container" class="bg-white p-6 rounded-lg shadow-md mb-6 hidden">
+            <h3 class="text-lg font-bold mb-4">Workout Days</h3>
+            <div id="workout_days_list" class="grid gap-2"></div>
+            <button onclick="saveProgress()" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Save Progress
+            </button>
+        </div>
+
+        <!-- Test Fitness Assessment -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold mb-4">Test Fitness Assessment</h2>
+            <select id="assessmentTopic" class="w-full p-2 border rounded mb-2">
+                <option value="Weight Loss">Weight Loss</option>
+                <option value="Muscle Building">Muscle Building</option>
+                <option value="Strength Training">Strength Training</option>
+            </select>
+            <select id="assessmentLevel" class="w-full p-2 border rounded mb-2">
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+            </select>
+            <input type="number" id="assessmentQuestions" value="3" class="w-full p-2 border rounded mb-4" min="1" max="10">
+            <button onclick="generateAssessment()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 w-full">
+                Generate Assessment
+            </button>
+            <div id="assessmentOutput" class="mt-4 p-4 bg-gray-100 rounded"></div>
+        </div>
+    </div>
+
+    <script>
+        let allWorkouts = [];
+        let selectedWorkoutIndex = -1;
+
+        function debugLog(message) {
+            console.log(message);
+            const debugDiv = document.getElementById('debug');
+            debugDiv.innerHTML += '<div>' + message + '</div>';
+        }
+
+        function loadWorkoutSelector() {
+            debugLog('🔄 Starting workout selector test...');
+            const selector = document.getElementById('workoutSelector');
+
+            fetch('/get_progress')
+                .then(response => {
+                    debugLog('📡 API Response Status: ' + response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    debugLog('📊 API Response: ' + JSON.stringify(data, null, 2));
+
+                    selector.innerHTML = '<option value="">Select a workout</option>';
+
+                    if (data.workouts && data.workouts.length > 0) {
+                        allWorkouts = data.workouts;
+                        debugLog('✅ Found ' + data.workouts.length + ' workouts');
+
+                        data.workouts.forEach((workout, index) => {
+                            const option = document.createElement('option');
+                            option.value = index;
+                            option.textContent = workout.goal + ' (' + (workout.timestamp || index + 1) + ')';
+                            selector.appendChild(option);
+                            debugLog('➕ Added: ' + workout.goal);
+                        });
+
+                        debugLog('🎉 SUCCESS: Workout selector loaded!');
+                    } else {
+                        debugLog('❌ No workouts found in API response');
+                        selector.innerHTML = '<option value="">No workouts found</option>';
+                    }
+                })
+                .catch(error => {
+                    debugLog('❌ Error: ' + error);
+                    selector.innerHTML = '<option value="">Error loading workouts</option>';
+                });
+        }
+
+        function loadWorkoutDays() {
+            const selector = document.getElementById('workoutSelector');
+            const selectedIndex = selector.value;
+
+            if (!selectedIndex || selectedIndex === "") {
+                document.getElementById('workout_days_container').classList.add('hidden');
+                debugLog('❌ No workout selected');
+                return;
+            }
+
+            debugLog('🏋️ Loading days for workout index: ' + selectedIndex);
+            selectedWorkoutIndex = parseInt(selectedIndex);
+
+            if (selectedWorkoutIndex < 0 || selectedWorkoutIndex >= allWorkouts.length) {
+                debugLog('❌ Invalid workout index');
+                return;
+            }
+
+            const workout = allWorkouts[selectedWorkoutIndex];
+            const container = document.getElementById('workout_days_list');
+            container.innerHTML = '';
+
+            // Parse workout days from HTML plan
+            const parser = new DOMParser();
+            const planDoc = parser.parseFromString(workout.plan, 'text/html');
+            const workoutDays = planDoc.querySelectorAll('.workout-day');
+
+            debugLog('📋 Found ' + workoutDays.length + ' workout days');
+
+            if (workoutDays.length === 0) {
+                container.innerHTML = '<p class="text-gray-500">No workout days found</p>';
+                document.getElementById('workout_days_container').classList.remove('hidden');
+                return;
+            }
+
+            workoutDays.forEach((day, index) => {
+                const dayTitle = day.querySelector('h3') ? day.querySelector('h3').textContent : 'Day ' + (index + 1);
+                const isCompleted = workout.completed_days && workout.completed_days.includes(index);
+
+                const dayElement = document.createElement('div');
+                dayElement.className = 'flex items-center p-3 border rounded-lg hover:bg-gray-50';
+                dayElement.innerHTML =
+                    '<input type="checkbox" id="day_' + index + '" ' + (isCompleted ? 'checked' : '') + ' class="mr-3 w-4 h-4">' +
+                    '<label for="day_' + index + '" class="flex-1 cursor-pointer text-sm ' + (isCompleted ? 'line-through text-green-600' : 'text-gray-700') + '">' + dayTitle + '</label>';
+
+                container.appendChild(dayElement);
+            });
+
+            document.getElementById('workout_days_container').classList.remove('hidden');
+            debugLog('✅ Loaded ' + workoutDays.length + ' days successfully');
+        }
+
+        function saveProgress() {
+            if (selectedWorkoutIndex === -1) {
+                debugLog('❌ No workout selected for saving');
+                return;
+            }
+
+            debugLog('💾 Saving progress...');
+            const container = document.getElementById('workout_days_list');
+            const checkboxes = container.querySelectorAll('input[type="checkbox"]');
+            let saved = 0;
+
+            checkboxes.forEach((checkbox, dayIndex) => {
+                const isCompleted = checkbox.checked;
+
+                fetch('/mark_complete', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            workout_index: selectedWorkoutIndex,
+                            day_index: dayIndex,
+                            completed: isCompleted
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            saved++;
+                            if (saved === checkboxes.length) {
+                                debugLog('✅ All progress saved successfully');
+                            }
+                        } else {
+                            debugLog('❌ Error saving day ' + dayIndex);
+                        }
+                    })
+                    .catch(error => {
+                        debugLog('❌ Network error saving day ' + dayIndex + ': ' + error);
+                    });
+            });
+        }
+
+        function generateAssessment() {
+            debugLog('🧠 Generating fitness assessment...');
+
+            const topic = document.getElementById('assessmentTopic').value;
+            const level = document.getElementById('assessmentLevel').value;
+            const questions = document.getElementById('assessmentQuestions').value;
+
+            document.getElementById('assessmentOutput').innerHTML = '<p class="text-blue-500">Generating assessment...</p>';
+
+            fetch('/generate_assessment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        goal: topic,
+                        level: level,
+                        questions: parseInt(questions)
+                    })
+                })
+                .then(response => {
+                    debugLog('📡 Assessment API Response Status: ' + response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    debugLog('🧠 Assessment Response: ' + JSON.stringify(data));
+
+                    const outputDiv = document.getElementById('assessmentOutput');
+                    outputDiv.innerHTML = '';
+
+                    if (data.success && data.assessment) {
+                        data.assessment.forEach((question, index) => {
+                            const p = document.createElement('p');
+                            p.innerHTML = '<strong>Q' + (index + 1) + ':</strong> ' + question;
+                            p.className = 'mb-2 p-2 bg-white rounded border-l-4 border-blue-500';
+                            outputDiv.appendChild(p);
+                        });
+                        debugLog('✅ Assessment generated successfully');
+                    } else {
+                        outputDiv.innerHTML = '<p class="text-red-500">Error generating assessment</p>';
+                        debugLog('❌ Assessment generation failed');
+                    }
+                })
+                .catch(error => {
+                    debugLog('❌ Assessment error: ' + error);
+                    document.getElementById('assessmentOutput').innerHTML = '<p class="text-red-500">Network error</p>';
+                });
+        }
+
+        function deleteDebugLog(message) {
+            console.log(message);
+            const debugDiv = document.getElementById('deleteDebug');
+            debugDiv.innerHTML += '<div>' + message + '</div>';
+        }
+
+        function testDeleteWorkout() {
+            deleteDebugLog('🗑️ Testing delete first workout...');
+
+            if (allWorkouts.length === 0) {
+                deleteDebugLog('❌ No workouts to delete');
+                return;
+            }
+
+            const workoutToDelete = allWorkouts[0];
+            deleteDebugLog('🎯 Deleting: ' + workoutToDelete.goal);
+
+            fetch('/delete_workout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        index: 0
+                    })
+                })
+                .then(response => {
+                    deleteDebugLog('📡 Delete Response Status: ' + response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    deleteDebugLog('🗑️ Delete Response: ' + JSON.stringify(data));
+                    if (data.success) {
+                        deleteDebugLog('✅ Delete successful! Reloading workouts...');
+                        loadWorkoutSelector(); // Reload to see changes
+                    } else {
+                        deleteDebugLog('❌ Delete failed: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    deleteDebugLog('❌ Delete error: ' + error);
+                });
+        }
+
+        function testClearAll() {
+            if (!confirm('Are you sure you want to clear ALL workouts? This is for testing only.')) {
+                return;
+            }
+
+            deleteDebugLog('🧹 Testing clear all workouts...');
+
+            fetch('/clear_workouts', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    deleteDebugLog('📡 Clear Response Status: ' + response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    deleteDebugLog('🧹 Clear Response: ' + JSON.stringify(data));
+                    if (data.success) {
+                        deleteDebugLog('✅ Clear successful! Reloading workouts...');
+                        loadWorkoutSelector(); // Reload to see changes
+                    } else {
+                        deleteDebugLog('❌ Clear failed: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    deleteDebugLog('❌ Clear error: ' + error);
+                });
+        }
+
+        // Start the test when page loads
+        window.onload = function() {
+            debugLog('🚀 Page loaded, starting diagnostic tests...');
+            loadWorkoutSelector();
+        };
+    </script>
+</body>
+
+</html>

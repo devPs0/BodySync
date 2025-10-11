@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goals - MY GYM PLANNER</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='anime-style.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="logo">
+                <i class="fas fa-dumbbell"></i>Bodysync
+            </div>
+            <ul class="nav-links">
+                <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/my_workouts"><i class="fas fa-dumbbell"></i> My Workouts</a></li>
+                <li><a href="/progress_fitness"><i class="fas fa-chart-line"></i> Progress</a></li>
+                <li><a href="/goals" class="active"><i class="fas fa-target"></i> Goals</a></li>
+                <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Hero Section -->
+        <div class="hero-section" style="padding: 2rem 0;">
+            <h1 class="hero-title" style="font-size: 2.5rem;">
+                <i class="fas fa-target"></i> Your Fitness Goals
+            </h1>
+            <p class="hero-subtitle">
+                Set clear objectives and track your journey to ultimate fitness
+            </p>
+        </div>
+
+        <!-- Goals Grid -->
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3 class="card-title">Set Fitness Objectives</h3>
+                <p class="card-description">
+                    Define clear, measurable fitness goals for your workout programs and track your progress.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <h3 class="card-title">Build Workout Consistency</h3>
+                <p class="card-description">
+                    Maintain daily workout habits and build fitness streaks for long-term success.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="card-title">Track Fitness Progress</h3>
+                <p class="card-description">
+                    Monitor your workout completion rates and identify areas for strength improvement.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3 class="card-title">Earn Fitness Achievements</h3>
+                <p class="card-description">
+                    Unlock badges and rewards as you complete workout milestones and reach fitness goals.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <h3 class="card-title">Build Strength & Endurance</h3>
+                <p class="card-description">
+                    Progressive overload and consistent training to build muscle and cardiovascular fitness.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="card-title">Maintain Healthy Lifestyle</h3>
+                <p class="card-description">
+                    Combine regular workouts with proper nutrition and adequate rest for optimal results.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
