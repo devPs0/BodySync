@@ -2,5 +2,9 @@
   "dev": {
     "password": "devps0123",
     "email": "devprataps30@gmail.com"
+  },
+  "garv": {
+    "password": "Garv@123",
+    "email": "garv123@gmail.com"
   }
 }
